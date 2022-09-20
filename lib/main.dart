@@ -42,7 +42,7 @@ class _RandomWordsState extends State<RandomWords> {
         if (i.isOdd) return const Divider(); /*2*/
 
         final index = i ~/ 2; /*3*/
-        print(i);
+        print(index);
 
         if (index >= _suggestions.length) {
           _suggestions.addAll(generateWordPairs().take(10)); /*4*/
