@@ -30,9 +30,11 @@ class MyApp extends StatelessWidget {
   }
 }
 
+final _biggerFont = const TextStyle(fontSize: 18);
+
 class _RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
-  final _biggerFont = const TextStyle(fontSize: 18);
+
   final _saved = <WordPair>{};
 
   @override
@@ -43,35 +45,70 @@ class _RandomWordsState extends State<RandomWords> {
         if (i.isOdd) return const Divider(); /*2*/
 
         final index = i ~/ 2; /*3*/
-        print(index);
+        //print(index);
 
         if (index >= _suggestions.length) {
           _suggestions.addAll(generateWordPairs().take(10)); /*4*/
         }
-        final alreadySaved = _saved.contains(_suggestions[index]);
+        //print(_suggestions[0]);
         return ListTile(
           title: Text(
-            _suggestions[index].asPascalCase,
+            _suggestions[index].asUpperCase,
             style: _biggerFont,
           ),
-          trailing: Icon(
-            alreadySaved ? Icons.favorite : Icons.favorite_border,
-            color: alreadySaved ? Colors.pinkAccent : null,
-          ),
+
+          // trailing: Icon(
+          //   alreadySaved ? Icons.favorite : Icons.favorite_border,
+          //   color: alreadySaved ? Colors.pinkAccent : null,
+          // ),
           onTap: () {
-            setState(() {
-              if (alreadySaved) {
-                _saved.remove(_suggestions[index]);
-              } else {
-                _saved.add(_suggestions[index]);
-              }
-            });
+            // setState(() {
+            //   if (alreadySaved) {
+            //     _saved.remove(_suggestions[index]);
+            //   } else {
+            //     _saved.add(_suggestions[index]);
+            //   }
+            // });
+            /////
+
+            final String txtName = this._suggestions[index].toString();
+
+            print(txtName);
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailScreen(
+                    text: txtName,
+                  ),
+                ));
           },
         );
       },
     );
   }
   //...
+}
+
+class DetailScreen extends StatelessWidget {
+  final String text;
+  DetailScreen({Key key, @required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            text.toUpperCase(),
+          ),
+        ),
+        body: Center(
+          child: Text(
+            'Hello from the other side',
+            style: _biggerFont,
+          ),
+        ));
+  }
 }
 
 class RandomWords extends StatefulWidget {
