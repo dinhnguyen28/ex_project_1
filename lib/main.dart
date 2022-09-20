@@ -37,11 +37,13 @@ class _RandomWordsState extends State<RandomWords> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(10.0),
       itemBuilder: /*1*/ (context, i) {
         if (i.isOdd) return const Divider(); /*2*/
 
         final index = i ~/ 2; /*3*/
+        print(i);
+
         if (index >= _suggestions.length) {
           _suggestions.addAll(generateWordPairs().take(10)); /*4*/
         }
