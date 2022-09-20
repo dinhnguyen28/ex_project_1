@@ -92,7 +92,7 @@ class _RandomWordsState extends State<RandomWords> {
 
 class DetailScreen extends StatelessWidget {
   final String text;
-  DetailScreen({Key key, @required this.text}) : super(key: key);
+  DetailScreen({Key key, @required this.text});
 
   @override
   Widget build(BuildContext context) {
